@@ -1,0 +1,1428 @@
+  /* ================================
+    Reset
+  ================================ */
+  * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Noto Sans JP", sans-serif;
+  }
+
+  body {
+      background: #fff;
+      color: #111;
+      line-height: 1.6;
+  }
+
+  /* ================================
+    Header
+  ================================ */
+  .header {
+      width: 100%;
+      padding: 16px 24px;
+      background: #000;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;  /* ← fixed ではない */
+      top: 0;            /* ← これ必須 */
+      z-index: 1000;
+  }
+
+  .logo {
+    font-size: 24px;
+    letter-spacing: 0.1em;
+    font-family: 'Cormorant Garamond', serif;
+    text-decoration: none;  /* 下線を消す */
+    color: #fff;            /* 色を明示 */
+    display: inline-block;  /* ブロック要素化 */
+    line-height: 1;         /* 行間を統一 */
+}
+
+/* リンク時の色変化を防ぐ */
+.logo:hover,
+.logo:visited,
+.logo:active {
+    color: #fff;
+}
+
+  /* ハンバーガーボタン基礎 */
+  .menu-btn {
+    width: 30px;
+    height: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  /* 三本線 */
+  .menu-btn span {
+    display: block;
+    height: 2px;
+    background: #fff;
+  }
+
+  /* ハンバーガーメニュー背景（全画面黒だがメニュー枠は中央） */
+  .global-nav {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85); /* 背景 */
+    display: none;
+    z-index: 999;
+  }
+
+  /* .active が付いたときだけ表示 */
+  .global-nav.active {
+    display: flex; /* ← flex にすることで中央揃えが簡単になる */
+    justify-content: center;
+    align-items: center; /* 完全中央配置 */
+  }
+
+  .global-nav-inner {
+    position: relative;   /* ← これを追加！ */
+    width: 80%;
+    max-width: 300px;
+    background: #000;
+    padding: 40px 20px;
+    border-radius: 8px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+
+  .global-nav-logo {
+    color: #fff;
+    font-size: 22px;
+    margin-bottom: 30px;
+    letter-spacing: 0.15em;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  .global-nav-list {
+    list-style: none;
+    margin: 0 0 30px;
+    padding: 0;
+  }
+
+  .global-nav-list li + li {
+    margin-top: 16px;
+  }
+
+  .global-nav-list a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    display: block; /* クリック範囲を広げる */
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  /* × ボタン */
+  .nav-close-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 28px;
+    cursor: pointer;
+    line-height: 1;
+  }
+
+
+  /* RESERVATION ボタン */
+  .global-nav-reserve {
+    display: inline-block;
+    padding: 10px 32px;
+    background: #fff;
+    color: black;
+    border-radius: 999px;
+    border: 1px solid #c9b16e;
+    font-size: 15px;
+    letter-spacing: 0.2em;
+    margin-top: 10px;
+    text-decoration: none;
+    margin: 0 auto;
+  }
+
+
+/* ================================
+   Hero + Concept 共通背景
+================================ */
+.hero-bg {
+  position: relative;
+  min-height: auto;      /* Hero + Concept 分 */
+  overflow: hidden;
+}
+
+/* 背景画像（HTMLの picture / img 用） */
+.hero-bg-img,
+.hero-bg-img img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* 背景画像の見せ方（共通） */
+.hero-bg-img img {
+  object-fit: cover;        /* ★SP/PC 共通でこれ */
+  object-position: center top;
+}
+
+/* ================================
+   前面レイヤー
+================================ */
+.hero,
+.concept {
+  position: relative;
+  z-index: 1;
+}
+
+/* ================================
+   Hero
+================================ */
+
+.hero {
+  /* 人物画像の調整値 */
+  --model-width: 75%;
+  --model-max: 520px;
+  --model-x: 0px;
+  --model-y: 4vh;
+}
+
+
+.hero {
+  height: 80vh;             /* 見た目の高さ調整 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-center {
+  position: relative;
+  top: 5vh;                 /* 縦位置調整 */
+}
+
+/* 人物画像 */
+.hero-model {
+  width: var(--model-width);
+  max-width: var(--model-max);
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  transform: translate(
+    var(--model-x),
+    var(--model-y)
+  );
+}
+
+.hero-title {
+  color: #ffffff;              /* 白文字 */
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.4rem, 4.8vw, 4.6rem);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+
+  /* ★ 添付画像と同系の影 */
+  text-shadow:
+    1px 1px 2px rgba(0,0,0,0.65),
+   -1px 1px 2px rgba(0,0,0,0.65),
+    1px -1px 2px rgba(0,0,0,0.65),
+   -1px -1px 2px rgba(0,0,0,0.65);
+}
+
+/* SEO用テキスト（非表示だがGoogleは読む） */
+.hero-title .seo-text {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* 表示用テキスト（英語） */
+.hero-title .visual-text {
+  display: block;
+}
+
+.hero-sub {
+  color: #ffffff;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  letter-spacing: 0.18em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  white-space: nowrap;
+
+  text-shadow:
+    1px 1px 2px rgba(0,0,0,0.6),
+   -1px 1px 2px rgba(0,0,0,0.6),
+    1px -1px 2px rgba(0,0,0,0.6),
+   -1px -1px 2px rgba(0,0,0,0.6);
+}
+
+.hero-sub .line {
+  flex: 1;  /* 残りのスペースを埋める */
+  height: 1px;
+  background-color: #ffffff;
+  max-width: 150px;  /* 線が長くなりすぎないように制限 */
+}
+
+/* テキスト */
+.hero-overlay {
+  position: absolute;
+  top: 38%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+/* ================================
+   Concept
+================================ */
+.concept {
+  background: transparent !important;
+  padding: 0px 20px 30px;  /* 上下余白はここだけで管理 */
+  max-width: 800px;
+  margin: -80px auto 0
+}
+
+.concept p {
+  margin-bottom: 0;         /* 余計な段落余白を排除 */
+  text-align: center;        /* 中央配置 */
+  white-space: nowrap;       /* 改行しない */
+  font-size: clamp(14px, 1.9vw, 18px);
+}
+
+/* 初期状態：PCでは改行させない */
+.sp-only {
+  display: none;
+}
+
+
+/* ================================
+   SP（スマホ）
+================================ */
+@media (max-width: 767px) {
+  .hero {
+    --model-width: 100%;
+    --model-max: 360px;
+    --model-y: -8vh;
+  }
+
+  .hero-overlay {
+    top: 34%;
+  }
+}
+  .hero-sub {
+    font-size: 1.2rem !important;
+  }
+
+@media (max-width: 767px) {
+  .hero-title {
+    font-size: 6.5vw;      /* ★SPで確実に収まる */
+  }
+}
+
+/* スマホ表示のみ改行を有効にする */
+@media (max-width: 767px) {
+  .sp-only {
+    display: inline;
+  }
+}
+
+
+
+/* ================================
+   PC
+================================ */
+@media (min-width: 768px) {
+  .hero-bg {
+    min-height: 140vh;      /* PCは少し短く */
+  }
+}
+
+@media (min-width: 768px) {
+  .hero-model {
+    width: 100%;        /* ← 横幅を調整（基本はここ） */
+    max-width: 520px;  /* ← 大きくなりすぎない上限 */
+  }
+}
+
+@media (min-width: 768px) {
+  .hero-title {
+    font-size: 3.5rem;  /* PCだけ調整 */
+  }
+}
+
+.hero-sub {
+    font-size: 30px;
+  }
+
+@media (min-width: 768px) {
+  .concept {
+    margin-top: 90px;
+    font-size: 25px;
+    padding-top: 30px;   /* ← これを追加 */
+  }
+}
+
+@media (min-width: 768px) {
+  .concept > p {
+  text-align: center;
+  margin: 0 auto;
+  transform: translateX(-20%);
+  font-size: 25px;
+}
+
+}
+
+
+@media (min-width: 768px) {
+  .recommend {
+    display: block;
+    max-width: 200px;      /* ← 中央に見せるための幅 */
+    margin: 16px auto 0;   /* ← ★これが「中央配置」の正体 */
+    font-size: 25px;
+    line-height: 1.8;
+    text-align: left;      /* ← 左揃えはそのまま */
+  }
+}
+
+
+  /* ================================
+    STYLE
+  ================================ */
+  .style-section {
+      padding: 20px 30px;
+      background: #000;
+      color: #fff;
+  }
+
+  .section-title {
+      text-align: center;
+      font-size: 25px;
+      color:white;
+      margin-bottom: 30px;
+      font-family: 'Cormorant Garamond', serif;
+      padding-top: 20px;
+      margin-top: 0;
+    
+  }
+
+  .style-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+  }
+
+  /* スマホ表示：画像は100%の幅 */
+  .style-grid img {
+    width: 100%;
+    display: block;
+    margin: 0 auto;
+  }
+
+  /* PC表示：画像を幅400pxに固定 */
+  @media (min-width: 768px) {
+    .style-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* ← 2列表示を明示 */
+      gap: 24px; /* ← 画像間の余白 */
+      max-width: 720px; /* ← お好みで中央寄せ＋幅制限 */
+      margin: 0 auto;
+    }
+
+    .style-grid img {
+      width: 100%; /* ← グリッドセル内でフィットさせる */
+      height: auto;
+    }
+  }
+
+  /* PC表示時にSTYLE見出しを大きくする */
+  @media (min-width: 768px) {
+    .section-title {
+      font-size: 36px;  /* ← お好みで40pxなどに調整可能 */
+      letter-spacing: 0.1em;
+    }
+  }
+
+  
+
+  /* STYLE 下層ページ用 */
+  body.page-style {
+    background: #fff;
+  }
+
+  /* 下層STYLEのセクション余白を少し増やす例 */
+  body.page-style .style-section {
+    padding-top: 10px;
+    padding-bottom: 60px;
+    background: #fff; /* TOPのSTYLEが黒背景でも、こちらだけ白にできる */
+  }
+
+
+  /* STYLE 下層ページのメインブロック */
+  .style-page-section {
+    padding: 0px 0 40px;
+    background: #fff;
+    text-align: center;
+  }
+
+  /* 見出し */
+  .style-page-section .section-title {
+    font-size: 28px;
+    margin-bottom: 30px;  /* ← 見出しと画像の距離を調整 */
+    letter-spacing: 0.1em;
+    color: black;
+  }
+
+
+
+/* ================================
+   STYLE TOP：完成形（整理済み）
+================================ */
+
+/* STYLE 見出し */
+.style-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px;
+  letter-spacing: 0.2em;
+  text-align: center;
+  margin-bottom: 32px;
+  color: #000;
+}
+
+
+/* セクション全体（背景） */
+/* 写真エリア（背景を画像サイズに合わせる） */
+.style-photos {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 24px;          /* ← 写真と背景の余白 */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4%;
+
+  background-color: #f6d6b8;
+  background-image: url("../images/styles/背景画像.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+/* セクション外枠（余白だけ担当） */
+.style-hero {
+  padding: 40px 0;
+  text-align: center;
+}
+
+
+/* ================================
+   スマホ表示（横並び維持）
+================================ */
+@media (max-width: 640px) {
+  .style-photos {
+    gap: 8px;
+  }
+
+  .style-photo {
+    width: 48%;
+    height: 200px;
+    transform: none;
+  }
+}
+
+/* ================================
+   STYLE TOP：画像を少し傾ける
+================================ */
+
+/* 左の画像 */
+.photo-left {
+  transform: rotate(-3deg);
+}
+
+/* 右の画像 */
+.photo-right {
+  transform: rotate(3deg);
+}
+
+@media (min-width: 641px) {
+
+  .style-photos {
+    gap: 8px;                 /* スマホと同じ余白感 */
+  }
+
+  .style-photo {
+    width: 48%;               /* ← 2枚が必ず背景内に収まる */
+    height: auto;             /* ← 高さは画像に任せる */
+  }
+}
+
+/* STYLE 画像下のメッセージ */
+.style-message {
+  margin: 32px auto 0;     /* 画像との距離 */
+  text-align: center;
+  font-size: 14px;         /* スマホ基準 */
+  line-height: 1.9;
+  max-width: 520px;        /* 横に広がりすぎない */
+  color: #333;             /* 白背景前提で上品に */
+}
+
+/* PC表示 */
+@media (min-width: 768px) {
+  .style-message {
+    font-size: 16px;
+    max-width: 640px;
+  }
+}
+
+
+  /* ================================
+    STYLIST ページ共通
+  ================================ */
+
+  /* ページ全体 */
+  .stylist-page-section {
+    padding: 20px 0 40px;
+    background: #fff;
+    text-align: center;
+  }
+
+  /* ページタイトル */
+  .page-stylist .section-title {
+    color: #000 !important;
+  }
+
+  .stylist-heading {
+  font-family: 'Cormorant Garamond', serif; /* フォント統一 */
+  font-size: 25px;                         /* STYLEと同じ */
+  letter-spacing: 0.1em;
+  text-align: center;
+  color: #000;                             /* STYLISTは白背景 */
+  margin-top: 20px;                        /* 上の余白 */
+  margin-bottom: 30px;                    /* 下の余白（STYLEと同じ） */
+}
+
+  /* ================================
+    STYLIST TOP画像
+  ================================ */
+
+  /* TOP画像ラッパー */
+  .stylist-top-photo {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+  }
+
+  /* TOP画像（共通） */
+  .stylist-top-photo img {
+    width: 100%;
+    height: auto;                 /* 見切れ防止（重要） */
+    object-fit: contain;          /* 全体表示（重要） */
+    display: block;
+    border-radius: 6px;
+    margin-bottom: 24px;
+  }
+
+  /* ================================
+    プロフィール
+  ================================ */
+
+  .stylist-profile {
+    text-align: center;
+  }
+
+  /* プロフィール画像 */
+  .profile-photo {
+    width: 220px;
+    height: 240px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto 16px;
+  }
+
+  /* 名前 */
+  .stylist-name {
+    font-size: 20px;
+    margin: 12px auto;
+    text-align: center;
+    display: inline-block;
+    border-bottom: 1px solid #000;
+    padding-bottom: 6px;
+    width: auto;
+  }
+
+  /* 本文テキスト（スマホ基準） */
+  .stylist-text {
+    max-width: 320px;
+    margin: 0 auto;
+    padding: 0 16px;
+    font-size: 15px;
+    line-height: 1.9;
+    text-align: center;
+  }
+
+  /* ================================
+    スキルブロック
+  ================================ */
+
+  .stylist-skill-block {
+    text-align: center;
+    margin-top: 40px;
+  }
+
+  .skill-row {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 320px;
+    margin: 8px auto;
+    padding-left: 10px;
+  }
+
+  .skill-row span {
+    font-size: 15px;
+    margin-right: 20px;
+    line-height: 1.8;
+  }
+
+  /* ================================
+    PC表示（768px〜）
+  ================================ */
+
+  @media (min-width: 768px) {
+
+    /* 見出し */
+    .stylist-heading {
+      font-size: 36px;
+    }
+
+    /* プロフィール画像（PC） */
+    .stylist-photo {
+      width: 260px;
+      height: 300px;
+      object-position: center top;
+    }
+
+    /* 名前（PC） */
+    .stylist-name {
+      font-size: 30px;
+    }
+
+    /* 本文テキスト（PC：4行前後） */
+    .stylist-profile .stylist-text {
+      max-width: 620px;           /* ← 行数調整はここだけ */
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    /* TOP画像（PC：高さを出す） */
+    .stylist-top-photo img {
+      height: 400px;
+
+      object-fit: cover;          /* PCのみトリミング */
+    }
+  }
+
+  /* ================================
+    スマホ表示（〜640px）
+  ================================ */
+
+  @media (max-width: 640px) {
+
+    .stylist-name {
+      font-size: 22px;
+    }
+
+    .stylist-copy {
+      font-size: 13px;
+    }
+
+    .stylist-top-photo {
+      height: 280px;
+    }
+
+    .stylist-top-photo img {
+      height: auto;
+       
+    }
+  }
+
+@media (max-width: 640px) {
+  .stylist-figure {
+    overflow: hidden;
+  }
+
+  .stylist-photo {
+    width: 100%;
+    height: 100%;                 /* ← ★ここが決定打 */
+    object-fit: cover;
+    object-position: center top;  /* ← 頭を優先 */
+  }
+}
+
+
+
+  /* ================================
+    TOPページ MENU（index.html 専用）
+  ================================ */
+
+  /* セクション全体 */
+  .menu-section {
+    background: #000;
+    color: #fff;
+    padding: 24px 20px 64px;
+    text-align: center;
+    overflow: hidden; /* はみ出し防止 */
+  }
+
+  /* 見出し */
+  .menu-heading {
+    letter-spacing: 0.2em;
+    margin-bottom: 32px;
+    font-family: 'Cormorant Garamond', serif;
+    text-align: center;   /* ← 確実に中央 */
+  }
+
+
+  /* 見出しサイズ：スマホ */
+  @media (max-width: 640px) {
+    .menu-heading {
+      font-size: 20px;
+    }
+  }
+
+  /* 見出しサイズ：PC */
+  @media (min-width: 768px) {
+    .menu-heading {
+      font-size: 36px;
+    }
+  }
+
+  /* 中央レイアウト */
+  .menu-inner {
+    max-width: 480px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  /* メニュー画像 */
+  .menu-img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 6px;
+  }
+
+  /* 説明文 */
+  .menu-text {
+    line-height: 2;
+    margin: 0 auto;
+    max-width: 400px;
+  }
+
+  /* 説明文：スマホ */
+  @media (max-width: 640px) {
+    .menu-text {
+      font-size: 14px;
+    }
+  }
+
+  /* 説明文：PC */
+  @media (min-width: 768px) {
+    .menu-text {
+      font-size: 16px;
+    }
+  }
+
+  /* 「詳しくはこちら」ボタン */
+  .menu-btn-more {
+    display: block;
+    margin: 0 auto;
+    padding: 10px 18px;
+    background: #555;
+    color: #fff;
+    font-size: 14px;
+    text-decoration: none;
+    border-radius: 4px;
+    width: fit-content;
+  }
+
+  /* RESERVATION ボタン */
+  .menu-reserve-btn {
+    display: block;
+    margin: 0 auto;
+    padding: 10px 32px;
+    background: #fff;
+    color: black;
+    border-radius: 999px;
+    border: 1px solid #c9b16e;
+    font-size: 15px;
+    letter-spacing: 0.15em;
+    text-decoration: none;
+    width: fit-content;
+  }
+
+  /* MENU 下層：タイトル中央 */
+  .menu-title {
+    text-align: center;
+  }
+
+  /* ================================
+    MENUページ：TOP画像
+  ================================ */
+
+  /* 共通（スマホ含む） */
+  .menu-main-img-full {
+    width: 100vw;
+    max-width: 100%;
+    height: auto;              /* ← スマホは自然比率 */
+    display: block;
+    margin: 0 calc(50% - 50vw) 40px;
+    object-fit: contain;
+  }
+
+  /* ===== PC表示のみ高さをコントロール ===== */
+  @media (min-width: 768px) {
+    .menu-main-img-full {
+      height: 420px;           /* ← ★ここを変えるだけ */
+      object-fit: cover;       /* ← 高さを埋める */
+    }
+  }
+
+
+  /* ================================
+    MENUページ：余白調整（STYLISTと揃える）
+  ================================ */
+
+  /* MENU全体 */
+  .menu-page {
+    padding-top: 20px;   /* ヘッダー直下の余白 */
+  }
+
+  /* MENUタイトル */
+  .menu-title {
+    margin-top: 0;       /* ヘッダーとの距離を詰める */
+    margin-bottom: 30px; /* タイトルと画像の間 */
+    text-align: center;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  /* ================================
+   MENUページ：ブロック全体
+================================ */
+
+.menu-page {
+  max-width: 480px;
+  margin: 0 auto;
+  padding-bottom: 60px;
+}
+
+/* 各メニューブロック */
+.menu-block {
+  margin-bottom: 48px;
+  text-align: center;
+}
+
+/* 見出し（カット・カラー等） */
+.menu-block-header {
+  text-align: center;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #000; /* ← 下だけ線 */
+}
+
+.menu-block-header span {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* ================================
+   MENU 見出し：下に二重線（全幅）
+================================ */
+
+.menu-block-header {
+  position: relative;
+  text-align: center;
+  margin-bottom: 20px;
+  padding-bottom: 16px; /* 線との距離 */
+}
+
+/* 1本目の線 */
+.menu-block-header::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 6px;
+  height: 1px;
+  background: #000;
+}
+
+/* 2本目の線（少し薄く） */
+.menu-block-header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: #000;
+  opacity: 0.5;   /* ← これを追加 */
+}
+
+
+/* 見出し文字 */
+.menu-block-header span {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+
+
+/* メニュー名 */
+.menu-item-title {
+  font-size: 15px;
+  font-weight: bold;
+  margin-top: 16px;
+}
+
+/* メニューブロック内は左揃え */
+.menu-block {
+  text-align: left;
+  padding: 0 16px;
+}
+
+
+/* 説明文 */
+.menu-item-desc {
+  font-size: 13px;
+  line-height: 1.8;
+  margin: 4px 0;
+}
+
+/* 金額を右寄せ */
+.menu-price {
+  text-align: right;
+  font-weight: bold;
+  margin-top: 4px;
+}
+
+
+/* 点線 */
+.dot-line {
+  border: none;
+  border-top: 1px dotted #999;
+  margin: 20px 0;
+}
+
+/* クーポンボタン */
+.menu-coupon-btn {
+  display: block;                 /* ← 中央配置の鍵 */
+  width: fit-content;
+  margin: 16px auto 0;            /* ← 左右autoで中央 */
+  padding: 8px 20px;
+  background: #000;
+  color: #fff;
+  text-decoration: none;
+  font-size: 13px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+
+/* 押したくなる動き（PC） */
+.menu-coupon-btn:hover {
+  transform: translateY(2px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+}
+
+
+@media (min-width: 768px) {
+  .menu-page {
+    max-width: 600px;
+  }
+
+  .menu-item-title {
+    font-size: 16px;
+  }
+
+  .menu-item-desc {
+    font-size: 14px;
+  }
+
+  .menu-price {
+    font-size: 16px;
+  }
+}
+
+/* ================================
+   MENUページ：PC時トップ画像を全幅に
+================================ */
+
+@media (min-width: 768px) {
+  .menu-main-img-full {
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+  }
+}
+
+
+
+  /* ================================
+    Access
+  ================================ */
+  .access-section {
+    padding: 50px 20px 60px;
+    background: #fff;
+    color: #000;
+    text-align: center;
+  }
+
+  .access-heading {
+    letter-spacing: 0.2em;
+    margin-bottom: 30px;
+    color: #000;
+    margin-top: -30px
+  }
+
+  @media (max-width: 640px) {
+    .access-heading {
+      font-size: 22px;   /* スマホ用 */
+    }
+  }
+
+  @media (max-width: 640px) {
+    .access-heading {
+      font-size: 22px;   /* スマホ用 */
+    }
+  }
+
+  @media (min-width: 768px) {
+    .access-heading {
+      font-size: 36px;   /* PC用 */
+    }
+  }
+
+  /* アクセス情報ブロックを中央配置 */
+  .access-table {
+    max-width: 520px;   /* 横に広がりすぎない */
+    margin: 0 auto;     /* ブロックを中央に */
+  }
+
+  /* 行は左揃えを維持 */
+  .access-row {
+    display: flex;
+    align-items: flex-start;
+    font-size: 14px;
+    margin-bottom: 8px;
+    text-align: left;   /* ← 左揃えを明示 */
+  }
+
+
+  .access-row dt {
+    width: 80px;        /* ラベル部分の幅（お好みで調整可） */
+    flex-shrink: 0;     /* 幅をつぶさない */
+  }
+
+  .access-row dd {
+    margin: 0;
+    flex: 1;
+    padding-left: 8px;  /* 「住所」と本文の間のスペース */
+    line-height: 1.8;   /* 読みやすい行間 */
+  }
+
+  /* マップ */
+  .access-map {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .access-map iframe {
+    width: 100%;
+    height: 320px;
+    display: block;
+  }
+
+
+  /* ================================
+    Footer
+  ================================ */
+  .footer {
+      text-align: center;
+      padding: 30px 0;
+      background: #000;
+      color: #fff;
+  }
+
+  .footer p {
+      font-size: 18px;   
+      font-family: 'Cormorant Garamond', serif; /* ← フォント変更 */
+      letter-spacing: 0.1em; /* お好みで追加（Figmaっぽく上品に） */
+  }
+
+
+  /* ハンバーガーメニュー開いた時のアニメーション */
+  .header.nav-open {
+      height: auto;
+      background: #111;
+  }
+
+  .header.nav-open .nav-menu {
+      display: block;
+  }
+
+.footer img {
+  width: 28px;     /* ← 好きなサイズに */
+  height: auto;    /* 縦横比を保つ */
+}
+
+
+/* =================================
+   TOPページ（index.html）STYLIST調整
+   ※ stylist.html には一切影響しない
+================================= */
+
+/* ▼ TOPでは縦長の全身写真を出さない */
+body:not(.page-stylist) .stylist-top-photo {
+  display: none;
+}
+
+/* ▼ TOPの STYLIST はコンパクト表示に固定 */
+body:not(.page-stylist) .stylist-section {
+  padding: 60px 20px;
+  background: #fff;
+}
+
+/* ▼ 丸写真 */
+body:not(.page-stylist) .stylist-photo {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto 20px;
+}
+
+/* ================================
+   STYLIST 見出しを中央にする
+================================ */
+.stylist-heading {
+  text-align: center;
+  width: 100%;
+}
+
+section {
+  scroll-margin-top: 80px; /* ヘッダーの高さに合わせて調整 */
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* 見出しリンクを完全に通常文字と同じ見た目にする */
+.section-title a,
+.section-title a:link,
+.section-title a:visited,
+.section-title a:hover,
+.section-title a:active,
+.stylist-heading a,
+.stylist-heading a:link,
+.stylist-heading a:visited,
+.stylist-heading a:hover,
+.stylist-heading a:active {
+  color: inherit;
+  font-family: 'Cormorant Garamond', serif;
+  text-decoration: none;
+}
+
+/* ==============================================
+   アニメーション追加コード
+============================================== */
+
+/* ================================================
+   1. ファーストビューのフェードイン
+================================================ */
+.hero {
+  animation: fadeIn 1.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ================================================
+   2. タイトルが下から浮き上がる
+================================================ */
+.hero-title {
+  animation: slideUp 0.8s ease-out 0.3s both;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ================================================
+   3. サブタイトルも遅れて表示
+================================================ */
+.hero-sub {
+  animation: slideUp 0.8s ease-out 0.5s both;
+}
+
+/* ================================================
+   4. 予約ボタンの脈打つアニメーション
+================================================ */
+.menu-reserve-btn,
+.global-nav-reserve {
+  animation: pulse 2s ease-in-out infinite;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+}
+
+/* ホバー時の拡大効果 */
+.menu-reserve-btn:hover,
+.global-nav-reserve:hover {
+  transform: scale(1.08) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* ================================================
+   5. STYLEギャラリーのホバー効果
+================================================ */
+.style-grid img {
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  cursor: pointer;
+}
+
+.style-grid img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+
+/* ================================================
+   6. ナビゲーションリンクのアンダーラインアニメーション
+================================================ */
+.global-nav-list a {
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.global-nav-list a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #fff;
+  transition: width 0.3s ease;
+}
+
+.global-nav-list a:hover::after {
+  width: 100%;
+}
+
+/* ================================================
+   7. スクロールで要素をフェードイン（後で実装）
+================================================ */
+.fade-in-section {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-in-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ================================================
+   8. スマホでは控えめなアニメーション
+================================================ */
+@media (max-width: 767px) {
+  /* スマホではホバー効果を無効化 */
+  .style-grid img:hover {
+    transform: scale(1.02); /* 小さめに */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* アニメーション時間を短縮 */
+  .hero {
+    animation-duration: 0.8s;
+  }
+  
+  .hero-title,
+  .hero-sub {
+    animation-duration: 0.6s;
+  }
+}
+
+/* ================================================
+   9. モーション軽減設定（アクセシビリティ対応）
+================================================ */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ================================================
+   10. パフォーマンス最適化
+================================================ */
+.hero-title,
+.hero-sub,
+.style-grid img {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+
+
+
+
+
